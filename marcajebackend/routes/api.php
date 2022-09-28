@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\TipoMarcajeController;
 use  App\Http\Controllers\UsuarioController;
 use  App\Http\Controllers\MarcajeController;
+use  App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,8 +27,18 @@ Route::get('/hola', function () {
 //     'usuarios' => UsuarioController::class,
 //     'tipos' => TipoMarcajeController::class,
 // ]);
+
+
+// Route::post('register', 'UserController@register');
+// Route::post('login', 'UserController@authenticate');
 Route::group([],
     function($router){
+        Route::post('/register', [Controller::class,'register']);
+        Route::post('/login', [Controller::class,'authenticate']);
+    }
+);
+Route::group(['middleware' => ['jwt.verify']], function() {
+//Route::group([], function() {
         // Route::get('/', [::class,'']);
         Route::get('/estado', [TipoMarcajeController::class,'obtenerEstado']);
         Route::get('/usuarios', [UsuarioController::class,'obtenerUsuarios']);
