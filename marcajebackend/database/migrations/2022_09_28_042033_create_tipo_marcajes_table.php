@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_marcajes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('tc_tipo_marcaje', function (Blueprint $table) {
+            $table->bigIncrements('tipo_marcaje_id');
+            $table->string('descripccion');
+            $table->tinyinteger('estado')->default(1);
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_marcajes');
+        Schema::dropIfExists('tc_tipo_marcaje');
     }
 };

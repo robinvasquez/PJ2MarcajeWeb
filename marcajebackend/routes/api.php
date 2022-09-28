@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use  App\Http\Controllers\TipoMarcajeController;
+use  App\Http\Controllers\UsuarioController;
+use  App\Http\Controllers\MarcajeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +19,27 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/hola', function () {
+    return ('hola');
+});
+// Route::apiResources([
+//     'usuarios' => UsuarioController::class,
+//     'tipos' => TipoMarcajeController::class,
+// ]);
+Route::group([],
+    function($router){
+        // Route::get('/', [::class,'']);
+        Route::get('/estado', [TipoMarcajeController::class,'obtenerEstado']);
+        Route::get('/usuarios', [UsuarioController::class,'obtenerUsuarios']);
+        Route::post('/usuario', [UsuarioController::class,'store']);
+        Route::put('/usuario/{id}', [UsuarioController::class,'update']);
+        Route::put('/usuario/delete/{id}', [UsuarioController::class,'destroy']);
+        Route::get('/marcajeD', [MarcajeController::class,'obtenerDetalle']);
+        Route::post('/marcajeD', [MarcajeController::class,'store']);
+        Route::get('/usuario/{id}', [UsuarioController::class,'show']);
+        Route::get('/usuario/email/{email}', [UsuarioController::class,'showByEmail']);
+        Route::get('/marcajeD/{id}', [MarcajeController::class,'show']);
+        Route::get('/marcajeD/user/{id}/{fecha}', [MarcajeController::class,'showByuser']);
+
+    }
+);

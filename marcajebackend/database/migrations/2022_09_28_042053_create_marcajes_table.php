@@ -13,9 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('marcajes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('tt_marcaje_detail', function (Blueprint $table) {
+            $table->increments('id');
+			$table->string('fecha');
+			$table->string('hora');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('usuario_id')->on('tc_usuario');
+            $table->unsignedBigInteger('tipo_marcaje_id');
+            $table->foreign('tipo_marcaje_id')->references('tipo_marcaje_id')->on('tc_tipo_marcaje');
+            $table->datetime('created_at')->useCurrent();
+            $table->datetime('updated_at')->nullable();
         });
     }
 
@@ -26,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marcajes');
+        Schema::dropIfExists('tt_marcaje_detail');
     }
 };
