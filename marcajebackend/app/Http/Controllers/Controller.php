@@ -93,7 +93,7 @@ class Controller extends BaseController
         $usuario = DB::table('users')->where('email', $email)->get();
         return $usuario;
     }
-    public function update(Request $request, User $usuario)
+    public function update(Request $request,  $id)
     {
         $usuario = User::find($id);
         $usuario->update([
