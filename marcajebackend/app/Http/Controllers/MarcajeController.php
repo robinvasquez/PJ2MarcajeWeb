@@ -39,13 +39,19 @@ class MarcajeController extends Controller
      */
     public function store(Request $request)
     {
-        $marcajeD = new Marcaje();
+        // $marcajeD = new Marcaje();
 
-        $marcajeD->usuario_id = $request->usuario_id;
-        $marcajeD->tipo_marcaje_id = $request->tipo_marcaje_id;
-        $marcajeD->fecha = $request->fecha;
-        $marcajeD->hora = $request->hora;
-        $marcajeD->save();
+        // $marcajeD->usuario_id = $request->usuario_id;
+        // $marcajeD->tipo_marcaje_id = $request->tipo_marcaje_id;
+        // $marcajeD->fecha = $request->fecha;
+        // $marcajeD->hora = $request->hora;
+        // $marcajeD->save();
+        $marcajeD = Marcaje::create([
+            'usuario_id' => $request->get('usuario_id'),
+            'tipo_marcaje_id' => $request->get('tipo_marcaje_id'),
+            'fecha' => $request->get('fecha'),
+            'hora' => $request->get('hora'),
+        ]);
     }
 
     /**
@@ -76,26 +82,4 @@ class MarcajeController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Marcaje  $marcaje
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Marcaje $marcaje)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Marcaje  $marcaje
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Marcaje $marcaje)
-    {
-        //
-    }
 }

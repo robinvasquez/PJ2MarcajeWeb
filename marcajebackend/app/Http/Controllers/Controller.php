@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +26,11 @@ class Controller extends BaseController
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        $email=$request->get('email');
+        $user = DB::table('users')->where('email', $email)->get();
+
+        return response()->json(compact('user','token'),201);
+        //return response()->json(compact('token'));
     }
     public function getAuthenticatedUser()
     {
@@ -46,7 +50,8 @@ class Controller extends BaseController
     public function register(Request $request)
         {
                 $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:255',
+                'nombre' => 'required|string|max:255',
+                'tipo_usuario' => 'required|max:2',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|min:6',
                 'password_confirmation' => 'required|same:password|min:6',
@@ -57,8 +62,10 @@ class Controller extends BaseController
             }
 
             $user = User::create([
-                'name' => $request->get('name'),
+                'nombre' => $request->get('nombre'),
                 'email' => $request->get('email'),
+                'tipo_usuario' => $request->get('tipo_usuario'),
+                'estado' => 1,
                 'password' => Hash::make($request->get('password')),
             ]);
 
@@ -66,4 +73,50 @@ class Controller extends BaseController
 
             return response()->json(compact('user','token'),201);
         }
+        public function obtenerUsuarios(){
+
+            $usuario = DB::table('users')->where('estado',1)->get();
+            return $usuario;
+        }
+    public function index()
+    {
+        $usuario = DB::table('users')->where('estado',1)->get();
+        return $usuario;
+    }
+    public function show(User $usuario)
+    {
+        $usuario = User::find($id);
+        return $usuario;
+    }
+    public function showByEmail($email)
+    {
+        $usuario = DB::table('users')->where('email', $email)->get();
+        return $usuario;
+    }
+    public function update(Request $request, User $usuario)
+    {
+        $usuario = User::find($id);
+        $usuario->update([
+            'nombre' => $request->get('nombre'),
+            'email' => $request->get('email'),
+            'tipo_usuario' => $request->get('tipo_usuario'),
+            'password' => Hash::make($request->get('password')),
+        ]);
+        return response ()->json([
+            'message' => "Usuario Actualizado Satisfactoriamente!",
+            'usuario' => $usuario
+        ], 200);
+    }
+    public function destroy(User $usuario)
+    {
+        $usuario = new User();
+        $estado = 0;
+        $usuario->estado = $request->estado;
+        $usuario = User::find($id);
+        $usuario->update(['estado' => $request->input($estado)]);
+        return response ()->json([
+            'message' => "Usuario inahabilitado correctamente!",
+            'user' => $usuario
+        ], 200);
+    }
 }
