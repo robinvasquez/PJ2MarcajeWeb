@@ -29,16 +29,15 @@ Route::get('/hola', function () {
 // ]);
 
 
-// Route::post('register', 'UserController@register');
-// Route::post('login', 'UserController@authenticate');
-Route::group([],
-    function($router){
-        Route::post('/register', [Controller::class,'register']);
-        Route::post('/login', [Controller::class,'authenticate']);
-    }
-);
-Route::group(['middleware' => ['jwt.verify']], function() {
-//Route::group([], function() {
+
+// Route::group([],
+//     function($router){
+//         Route::post('/register', [Controller::class,'register']);
+//         Route::post('/login', [Controller::class,'authenticate']);
+//     }
+// );
+// Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group([], function($router) {
         // Route::get('/', [::class,'']);
         Route::get('/estado', [TipoMarcajeController::class,'obtenerEstado']);
         Route::get('/usuarios', [UsuarioController::class,'obtenerUsuarios']);
