@@ -18,7 +18,7 @@ return new class extends Migration
 			$table->string('fecha');
 			$table->string('hora');
             $table->unsignedBigInteger('usuario_id');
-            $table->foreign('usuario_id')->references('usuario_id')->on('tc_usuario');
+            $table->foreign('usuario_id')->references('usuario_id')->on('users');
             $table->unsignedBigInteger('tipo_marcaje_id');
             $table->foreign('tipo_marcaje_id')->references('tipo_marcaje_id')->on('tc_tipo_marcaje');
             $table->datetime('created_at')->useCurrent();

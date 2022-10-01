@@ -41,14 +41,14 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 //Route::group([], function() {
         // Route::get('/', [::class,'']);
         Route::get('/estado', [TipoMarcajeController::class,'obtenerEstado']);
-        Route::get('/usuarios', [UsuarioController::class,'obtenerUsuarios']);
-        Route::post('/usuario', [UsuarioController::class,'store']);
-        Route::put('/usuario/{id}', [UsuarioController::class,'update']);
-        Route::put('/usuario/delete/{id}', [UsuarioController::class,'destroy']);
+        Route::get('/usuarios', [Controller::class,'obtenerUsuarios']);
+        Route::post('/usuario', [Controller::class,'store']);
+        Route::put('/usuario/{id}', [Controller::class,'update']);
+        Route::put('/usuario/delete/{id}', [Controller::class,'destroy']);
         Route::get('/marcajeD', [MarcajeController::class,'obtenerDetalle']);
         Route::post('/marcajeD', [MarcajeController::class,'store']);
-        Route::get('/usuario/{id}', [UsuarioController::class,'show']);
-        Route::get('/usuario/email/{email}', [UsuarioController::class,'showByEmail']);
+        Route::get('/usuario/{id}', [Controller::class,'show']);
+        Route::get('/usuario/email/{email}', [Controller::class,'showByEmail']);
         Route::get('/marcajeD/{id}', [MarcajeController::class,'show']);
         Route::get('/marcajeD/user/{id}/{fecha}', [MarcajeController::class,'showByuser']);
 
