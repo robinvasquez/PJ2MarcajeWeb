@@ -107,13 +107,13 @@ class Controller extends BaseController
             'usuario' => $usuario
         ], 200);
     }
-    public function destroy(User $usuario)
+    public function destroy(Request $request,$id)
     {
-        $usuario = new User();
-        $estado = 0;
-        $usuario->estado = $request->estado;
         $usuario = User::find($id);
-        $usuario->update(['estado' => $request->input($estado)]);
+        
+        $usuario->update([
+            'estado' => 0,
+        ]);
         return response ()->json([
             'message' => "Usuario inahabilitado correctamente!",
             'user' => $usuario
