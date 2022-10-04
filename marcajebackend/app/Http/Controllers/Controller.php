@@ -83,7 +83,7 @@ class Controller extends BaseController
         $usuario = DB::table('users')->where('estado',1)->get();
         return $usuario;
     }
-    public function show(User $usuario)
+    public function show($id)
     {
         $usuario = User::find($id);
         return $usuario;
