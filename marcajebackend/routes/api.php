@@ -6,6 +6,7 @@ use  App\Http\Controllers\TipoMarcajeController;
 use  App\Http\Controllers\UsuarioController;
 use  App\Http\Controllers\MarcajeController;
 use  App\Http\Controllers\Controller;
+use PHPJasper\PHPJasper;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,3 +55,4 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     }
 );
+
